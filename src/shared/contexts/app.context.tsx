@@ -6,7 +6,7 @@ import authService from '../services/auth.service';
 
 export const AppContext = createContext({} as IAppContext);
 
-const AppProvider: React.FC = ({ children }: any) => {
+const AppProvider = ({ children }: any) => {
 	const [user, setUser] = useState<IUser | null>(null);
 
 	// useEffect(() => {

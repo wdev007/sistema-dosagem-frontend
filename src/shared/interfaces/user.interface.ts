@@ -6,3 +6,8 @@ export interface IUser {
   createdAt: Date;
   updatedAt: Date;
 }
+
+export enum ROLE {
+  ADMIN = "admin",
+  USER = "user",
+}

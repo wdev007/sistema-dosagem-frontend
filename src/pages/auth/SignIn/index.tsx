@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography';
 import CssBaseline from '@mui/material/CssBaseline';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { authService } from '../../../services/auth';
+import { authService } from '../../../shared/services/auth';
 
 
 const SignIn = () => {
