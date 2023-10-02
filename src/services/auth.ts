@@ -11,6 +11,7 @@ export const authService: IAuthService = {
     await new Promise((resolve) => setTimeout(resolve, 1000));
     authService.isAuthenticated = true;
     authService.user = { username, password };
+    console.log("USER: ", authService.user);
     return;
   },
   signOut: async () => {

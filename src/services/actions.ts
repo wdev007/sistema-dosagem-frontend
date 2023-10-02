@@ -2,6 +2,7 @@ import { LoaderFunctionArgs, redirect } from "react-router-dom";
 import { authService } from "./auth";
 
 export async function loginAction({ request }: LoaderFunctionArgs) {
+  console.log("LOGIN ACTION: ", request);
   let formData = await request.formData();
   let username = formData.get("username") as string | null;
 
