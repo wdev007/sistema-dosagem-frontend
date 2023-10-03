@@ -3,4 +3,5 @@ import { IUser } from "./user.interface";
 
 export interface IAuthService {
   signIn: (session: ISession) => Promise<IUser>;
+  signOut: () => Promise<void>;
 }

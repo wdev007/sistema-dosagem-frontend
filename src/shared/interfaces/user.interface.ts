@@ -5,6 +5,7 @@ export interface IUser {
   password: string;
   createdAt: Date;
   updatedAt: Date;
+  role: ROLE;
 }
 
 export enum ROLE {
