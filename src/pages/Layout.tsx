@@ -1,19 +1,30 @@
+import { useState } from 'react';
 import { Outlet } from "react-router-dom"
-import MenuAppBar from "../shared/components/MenuAppBar"
-
-import Grid from '@mui/material/Grid';
-
+import { Main } from "../shared/components/Main";
+import PersistentDrawerLeft, { DrawerHeader } from "../shared/components/Drawer";
 
 const Layout = () => {
+	const [open, setOpen] = useState(false);
+
+	const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+
 	return (
-		<Grid container spacing={2}>
-			<Grid item xs={12} md={12}>
-				<MenuAppBar />
-			</Grid>
-			<Grid item xs={12} md={12}>
+		<Main open={open}>
+        <DrawerHeader />
+				<PersistentDrawerLeft 
+					handleDrawerClose={handleDrawerClose}
+					handleDrawerOpen={handleDrawerOpen}
+					open={open} 
+				/>
 				<Outlet />
-			</Grid>
-		</Grid>
+    </Main>
 	)
 }
 
