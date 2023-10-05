@@ -12,7 +12,7 @@ interface Props {
 
 export const PrivateRoute: React.FC<Props> = ({ component: RouteComponent, roles }) => {
   const { isAuthenticated, user } = useContext(AppContext);
-  console.log('user', user)
+
 	const userHasRequiredRole = user && roles.includes(user?.role) ? true : false
 
   if (isAuthenticated && userHasRequiredRole) {
@@ -23,5 +23,5 @@ export const PrivateRoute: React.FC<Props> = ({ component: RouteComponent, roles
     return <AccessDenied />
   }
 
-  return <Navigate to="/" />
+  return <Navigate to="/login" />
 }

@@ -16,6 +16,7 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar';
+import { useNavigate } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -50,6 +51,28 @@ export const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function PersistentDrawerLeft({ open, handleDrawerOpen, handleDrawerClose }: { open: boolean, handleDrawerOpen: any, handleDrawerClose: any}) {
   const theme = useTheme();
+  const navigate = useNavigate();
+  const menuItems = [
+    {
+      name: 'Usuários',
+      route: '/users'
+    },
+    {
+      name: 'Sensores',
+      route: '/sensors'
+    },
+    {
+      name: 'Configurações',
+      route: '/settings'
+    },
+    {
+      name: 'Suporte',
+      route: '/support'
+    }
+  ]
+  const handleClickButton = (route: string) => {
+    navigate(route);
+  }
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -89,13 +112,13 @@ export default function PersistentDrawerLeft({ open, handleDrawerOpen, handleDra
         </DrawerHeader>
         <Divider />
         <List>
-          {['Usuários', 'Sensores', 'Configurações', 'Suporte'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
+          {menuItems.map((item, index) => (
+            <ListItem key={item.name} disablePadding>
+              <ListItemButton onClick={() => handleClickButton(item.route)}>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemText primary={item.name} />
               </ListItemButton>
             </ListItem>
           ))}

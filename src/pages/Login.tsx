@@ -10,7 +10,6 @@ import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import CssBaseline from '@mui/material/CssBaseline';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
@@ -24,14 +23,11 @@ const Login = () => {
     const data = new FormData(event.currentTarget);
 		const email = data.get('email') as string;
 		const password = data.get('password') as string;
-    console.log('data', email, password);
 		await signIn({ email, password });
-		navigate('/dashboard');
-		console.log('deu ruim...');
+		navigate('/sensors');
   };
   return (
 		<Grid container component="main" sx={{ height: '100vh' }}>
-		<CssBaseline />
 		<Grid
 			item
 			xs={false}

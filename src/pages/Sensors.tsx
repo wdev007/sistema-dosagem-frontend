@@ -1,6 +1,6 @@
 import TableApp from '../shared/components/TableApp';
 
-const Dashboard = () => {
+const Sensors = () => {
   return (
 		<div style={{ height: 300, width: '100%' }}>
 			<TableApp />
@@ -8,4 +8,4 @@ const Dashboard = () => {
 	);
 }
 
-export default Dashboard
+export default Sensors
