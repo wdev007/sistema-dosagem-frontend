@@ -6,25 +6,20 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(
-  id: number,
+interface IData {
+  id: string,
   name: string,
-  description: number,
+  description: string,
   isActive: boolean,
   data: number,
   date: Date,
-) {
-  return { id, name, description, isActive, data, date };
 }
 
-// rows with sensor data
-const rows = [
-  createData(1, 'Sensor 1', 159, true, 6.0, new Date()),
-  createData(2, 'Sensor 2', 237, true, 9.0, new Date()),
-  createData(3, 'Sensor 3', 262, false, 16.0, new Date()),
-]
+interface IProps {
+  data: IData[]
+}
 
-export default function TableApp() {
+const TableApp = ({ data }: IProps) => {
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -34,12 +29,12 @@ export default function TableApp() {
             <TableCell align="right">Nome</TableCell>
             <TableCell align="right">Descrição</TableCell>
             <TableCell align="right">Status</TableCell>
-            <TableCell align="right">Dados</TableCell>
+            <TableCell align="right">Periodo de coleta</TableCell>
             <TableCell align="right">Data</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
+          {data.map((row) => (
             <TableRow
               key={row.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
@@ -49,7 +44,7 @@ export default function TableApp() {
               </TableCell>
               <TableCell align="right">{row.name}</TableCell>
               <TableCell align="right">{row.description}</TableCell>
-              <TableCell align="right">{String(row.isActive)}</TableCell>
+              <TableCell align="right">{row.isActive ? 'Ativo' : 'Inativo'}</TableCell>
               <TableCell align="right">{row.data}</TableCell>
               <TableCell align="right">{String(row.date)}</TableCell>
             </TableRow>
@@ -59,3 +54,5 @@ export default function TableApp() {
     </TableContainer>
   );
 }
+
+export default TableApp;
