@@ -1,8 +1,12 @@
+import { useNavigate } from 'react-router-dom';
 import { useState, useContext, useEffect } from 'react';
+
+import { Box, Button, Stack } from '@mui/material';
 import TableApp from '../shared/components/TableApp';
 import { SensorContext } from '../shared/contexts/sensor.context';
 
 const Sensors = () => {
+	const navigate = useNavigate();
 	const [data, setData] = useState<any[]>([])
 	const { sensors, findAll } = useContext(SensorContext);
 
@@ -26,10 +30,16 @@ const Sensors = () => {
 		setData(newData);
 	}, [sensors]);
 
-  return (
-		<div style={{ height: 300, width: '100%' }}>
+	return (
+		<Box>
+			<Stack
+				direction="row-reverse"
+				spacing={2}
+			>
+				<Button variant="contained" onClick={() => navigate('/sensors/create')}>CRIAR NOVO SENSOR</Button>
+			</Stack>
 			<TableApp data={data} />
-		</div>
+		</Box>
 	);
 }
 

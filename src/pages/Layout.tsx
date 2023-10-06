@@ -7,24 +7,23 @@ const Layout = () => {
 	const [open, setOpen] = useState(false);
 
 	const handleDrawerOpen = () => {
-    setOpen(true);
-  };
+		setOpen(true);
+	};
 
-  const handleDrawerClose = () => {
-    setOpen(false);
-  };
-
+	const handleDrawerClose = () => {
+		setOpen(false);
+	};
 
 	return (
 		<Main open={open}>
-        <DrawerHeader />
-				<PersistentDrawerLeft 
-					handleDrawerClose={handleDrawerClose}
-					handleDrawerOpen={handleDrawerOpen}
-					open={open} 
-				/>
-				<Outlet />
-    </Main>
+			<DrawerHeader />
+			<PersistentDrawerLeft
+				handleDrawerClose={handleDrawerClose}
+				handleDrawerOpen={handleDrawerOpen}
+				open={open}
+			/>
+			<Outlet />
+		</Main>
 	)
 }
 

@@ -1,8 +1,7 @@
 import { createContext, useState } from 'react';
-import { ISession } from '../interfaces/session.interface';
-import { ISensorContext } from '../interfaces/sensor.context.interface';
-import { ISensor } from '../interfaces/sensor.interface';
 import sensorService from '../services/sensor.service';
+import { ISensor } from '../interfaces/sensor.interface';
+import { ISensorContext } from '../interfaces/sensor.context.interface';
 
 export const SensorContext = createContext({} as ISensorContext);
 
@@ -11,13 +10,18 @@ const SensorProvider = ({ children }: any) => {
 
 	const findAll = async () => {
 		const newSensors = await sensorService.findAll();
-		console.log('newSensors:: ', newSensors);
 		setSensors(newSensors?.data || []);
+	}
+
+	const create = async (data: any) => {
+		await sensorService.create(data);
+		await findAll();
 	}
 
 	const values: ISensorContext = {
 		sensors,
-		findAll
+		findAll,
+		create
 	}
 
 	return (
