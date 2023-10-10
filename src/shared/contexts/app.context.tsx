@@ -10,11 +10,11 @@ const AppProvider = ({ children }: any) => {
 	const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
 	const [user, setUser] = useState<IUser | null>(null);
 
-	const signIn = async ({ email, password }: ISession) => {
-		const newUser = await authService.signIn({ email, password });
-		setUser(newUser);
+	const signIn = async ({ email, password }: ISession): Promise<IUser | null> => {
+		const { user: loggedInUser } = await authService.signIn({ email, password });
+		setUser(loggedInUser);
 		setIsAuthenticated(true);
-		return newUser;
+		return loggedInUser;
 	};
 
 	const signOut = async () => {
@@ -23,11 +23,17 @@ const AppProvider = ({ children }: any) => {
 		setIsAuthenticated(false);
 	}
 
+	const signUp = async ({ name, email, password, role }: IUser): Promise<IUser | null> => {
+		const newUser = await authService.signUp({ name, email, password, role });
+		return newUser;
+	};
+
 	const values = {
 		user,
 		isAuthenticated,
 		signIn,
-		signOut
+		signOut,
+		signUp,
 	}
 
 	return (

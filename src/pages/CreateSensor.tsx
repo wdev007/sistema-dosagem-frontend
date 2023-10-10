@@ -1,12 +1,16 @@
-import { useContext } from 'react';
 import Button from '@mui/material/Button';
 import { Box, Container } from "@mui/system";
-import { useNavigate } from 'react-router-dom';
 import { Grid, TextField } from "@mui/material";
+import { useContext, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { SensorContext } from '../shared/contexts/sensor.context';
 
 const CreateSensor = () => {
 	const navigate = useNavigate();
+  const { state } = useLocation();
+  const [name, setName] = useState<string>('');
+  const [description, setDescription] = useState<string>('');
+  const [collectionPeriod, setCollectionPeriod] = useState<number>(0);
 	const { create } = useContext(SensorContext);
 
 	const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -18,12 +22,25 @@ const CreateSensor = () => {
 		const data = {
 			name,
 			description,
-			collectionPeriod
+			runDataCollectionEveryInMinutes: collectionPeriod
 		}
-		console.log('DADOS_CADASTRO_SENSOR: ', data);
-		await create(data);
-		navigate('/sensors');
+    if (state) {
+      console.log('update')
+    } else {
+      // await create(data);
+      console.log('create')
+    }
+		// navigate('/sensors');
 	}
+
+  useEffect(() => {
+    if (state) {
+      const { name, description, data } = state;
+      setName(name);
+      setDescription(description);
+      setCollectionPeriod(data);
+    }
+  }, [state]);
 
 	return (
 		<Container component="main" maxWidth="xs">
@@ -45,6 +62,8 @@ const CreateSensor = () => {
                   id="name"
                   label="Nome"
                   autoFocus
+                  value={name}
+                  onChange={(event) => setName(event.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -54,6 +73,8 @@ const CreateSensor = () => {
                   id="description"
                   label="Descrição"
                   name="description"
+                  value={description}
+                  onChange={(event) => setDescription(event.target.value)}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -64,6 +85,8 @@ const CreateSensor = () => {
                   id="collectionPeriod"
                   label="Periodo da coleta"
                   name="collectionPeriod"
+                  value={collectionPeriod}
+                  onChange={(event) => setCollectionPeriod(Number(event.target.value))}
                 />
               </Grid>
             </Grid>

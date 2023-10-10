@@ -1,14 +1,14 @@
 export interface IUser {
-  id: string;
+  id?: string;
   name: string;
   email: string;
   password: string;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
   role: ROLE;
 }
 
 export enum ROLE {
-  ADMIN = "admin",
-  USER = "user",
+  ADMIN = "ADMIN",
+  USER = "USER",
 }

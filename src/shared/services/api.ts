@@ -1,8 +1,5 @@
-import axios from 'axios';
+import axios from "axios";
 
 export const api = axios.create({
-	baseURL: process.env.REACT_APP_API_URL,
-	headers: {
-			'Authorization': 'bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJjYmI4ZDkzLTRhZjgtNGMwOC05OTI4LTQ0MmY1ZjlhOGEyMSIsImVtYWlsIjoiYWRtaW5AYWRtaW4uY29tIiwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJyb2xlIjoiQURNSU4iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBRE1JTiIsImp0aSI6IjhhZTliMmQ0LTk0OTktNDVjMi05MWUzLTE2OTY4ZTQyNDNiYSIsImV4cCI6MTY5NjcxOTU5NywiaXNzIjoibmdaQ3RrNDlxbmN6MjRYayIsImF1ZCI6IkZtSkg4ODZlVzh4YnpxOGoifQ.8A6S2LeN8Z8z7bkz1ppoXRvCqxSp38-VatsW-REw_bE'
-	}
+  baseURL: process.env.REACT_APP_API_URL,
 });
