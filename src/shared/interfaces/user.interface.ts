@@ -5,6 +5,7 @@ export interface IUser {
   password: string;
   createdAt?: Date;
   updatedAt?: Date;
+  isActive?: boolean;
   role: ROLE;
 }
 

@@ -17,12 +17,14 @@ const authService: IAuthService = {
 
     localStorage.setItem("@token", token);
     localStorage.setItem("@user", JSON.stringify(response.data.user));
+    localStorage.setItem("@isAuthenticated", "true");
 
     return response.data;
   },
   signOut: async (): Promise<void> => {
     localStorage.removeItem("@token");
     localStorage.removeItem("@user");
+    localStorage.removeItem("@isAuthenticated");
     return;
   },
   signUp: async (user: IUser): Promise<IUser> => {

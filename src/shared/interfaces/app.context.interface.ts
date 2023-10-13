@@ -7,4 +7,6 @@ export interface IAppContext {
   signIn: (session: ISession) => Promise<IUser | null>;
   signOut: () => Promise<void>;
   signUp: (user: IUser) => Promise<IUser | null>;
+  setUser: (user: IUser | null) => void;
+  setIsAuthenticated: (isAuthenticated: boolean) => void;
 }
