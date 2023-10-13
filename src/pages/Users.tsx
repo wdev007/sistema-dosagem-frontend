@@ -20,18 +20,15 @@ const Users = () => {
   };
 
   const handleDelete = (row: any) => {
-    console.log(row.id);
     setOpenModal(true);
     setRowTemp(row);
   };
 
   const handleEdit = (row: any) => {
-    console.log(row.id);
     navigate("/users/create", { state: row });
   };
 
   const handleDetail = (row: any) => {
-    console.log(row.id);
     navigate(`/users/${row.id}`, { state: row });
   };
 

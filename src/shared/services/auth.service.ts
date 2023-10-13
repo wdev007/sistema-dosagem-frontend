@@ -27,10 +27,14 @@ const authService: IAuthService = {
     localStorage.removeItem("@isAuthenticated");
     return;
   },
-  signUp: async (user: IUser): Promise<IUser> => {
-    const response = await api.post<IUser>("/users", user);
-    console.log(`User created! - ${response.data}`);
-    return response.data;
+  signUp: async (user: IUser): Promise<any> => {
+    try {
+      const response = await api.post<IUser>("/users", user);
+      console.log(`User created! - ${response.data}`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
   },
 };
 
