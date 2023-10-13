@@ -1,13 +1,45 @@
-import { useEffect, useContext, useState } from "react";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, Stack } from "@mui/material";
 import TableApp from "../shared/components/TableApp";
+import { useEffect, useContext, useState } from "react";
+
+import Modal from "../shared/components/Modal";
 import { UserContext } from "../shared/contexts/user.context";
 
 const Users = () => {
   const navigate = useNavigate();
   const [data, setData] = useState<any[]>([]);
-  const { users, findAll } = useContext(UserContext);
+  const [rowTemp, setRowTemp] = useState<any>({});
+  const [openModal, setOpenModal] = useState(false);
+  const { users, findAll, remove } = useContext(UserContext);
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+    setRowTemp({});
+  };
+
+  const handleDelete = (row: any) => {
+    console.log(row.id);
+    setOpenModal(true);
+    setRowTemp(row);
+  };
+
+  const handleEdit = (row: any) => {
+    console.log(row.id);
+    navigate("/users/create", { state: row });
+  };
+
+  const handleDetail = (row: any) => {
+    console.log(row.id);
+    navigate(`/users/${row.id}`, { state: row });
+  };
+
+  const removeUser = async () => {
+    await remove(rowTemp.id);
+    await findAll();
+    setOpenModal(false);
+  };
 
   useEffect(() => {
     const request = async () => {
@@ -31,11 +63,6 @@ const Users = () => {
 
   return (
     <Box>
-      <Stack direction="row-reverse" spacing={2} paddingBottom={2}>
-        <Button variant="contained" onClick={() => navigate("/sensors/create")}>
-          CRIAR NOVO USUÁRIO
-        </Button>
-      </Stack>
       <TableApp
         data={data}
         hasActions
@@ -61,6 +88,18 @@ const Users = () => {
             name: "Data",
           },
         ]}
+        onClickDelete={handleDelete}
+        onClickEdit={handleEdit}
+        onClickDetail={handleDetail}
+      />
+      <Modal
+        open={openModal}
+        content="Ao excluir o usuário, todos os dados relacionados a ele serão perdidos."
+        handleClose={handleCloseModal}
+        title="Deseja excluir o usuário?"
+        closeText="Cancelar"
+        confirmText="Excluir"
+        handleConfirm={removeUser}
       />
     </Box>
   );

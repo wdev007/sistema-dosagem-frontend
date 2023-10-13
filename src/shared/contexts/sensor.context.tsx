@@ -25,12 +25,24 @@ const SensorProvider = ({ children }: any) => {
     setSensorDetail(sensorDetail || []);
   };
 
+  const update = async (id: string, data: any) => {
+    await sensorService.update(id, data);
+    await findAll();
+  };
+
+  const remove = async (id: string) => {
+    await sensorService.remove(id);
+    await findAll();
+  };
+
   const values: ISensorContext = {
     sensors,
     findAll,
     create,
     findDetailById,
     sensorDetail,
+    update,
+    remove,
   };
 
   return (

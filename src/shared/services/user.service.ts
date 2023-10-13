@@ -29,7 +29,14 @@ const userService: IUserService = {
       console.log("create error: ", error);
     }
   },
-  async delete(id) {},
+  async remove(id) {
+    try {
+      const response = await api.delete<IUser>(`/users/${id}`);
+      console.log("remove response: ", response);
+    } catch (error) {
+      console.log("remove error: ", error);
+    }
+  },
 };
 
 export default userService;

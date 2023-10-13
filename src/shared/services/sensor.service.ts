@@ -32,6 +32,22 @@ const sensorService: ISensorService = {
       console.log("findDetailById error: ", error);
     }
   },
+  async update(id: string, data: any) {
+    try {
+      const response = await api.put(`/sensors/${id}`, data);
+      return response;
+    } catch (error) {
+      console.log("update error: ", error);
+    }
+  },
+  async remove(id: string) {
+    try {
+      const response = await api.delete(`/sensors/${id}`);
+      return response;
+    } catch (error) {
+      console.log("delete error: ", error);
+    }
+  },
 };
 
 export default sensorService;

@@ -5,5 +5,5 @@ export interface IUserContext {
   findAll: () => Promise<void>;
   create: (data: IUser) => Promise<void>;
   update: (id: string, data: IUser) => Promise<void>;
-  deleteUser: (id: string) => Promise<void>;
+  remove: (id: string) => Promise<void>;
 }

@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+import { Box } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useContext, useEffect, useState } from "react";
-import { Box, Button, Stack } from "@mui/material";
 
 import { SensorContext } from "../shared/contexts/sensor.context";
 import TableApp from "../shared/components/TableApp";
@@ -24,6 +24,7 @@ const SensorDetail = () => {
   useEffect(() => {
     const newData = sensorDetail?.map((item) => ({
       id: item.id,
+      sensor_name: item.sensor.name,
       dosage: item.dosage,
       phValue: item.phValue,
       waterColor: item.waterColor,
@@ -38,6 +39,10 @@ const SensorDetail = () => {
       <TableApp
         data={data}
         columns={[
+          {
+            key: "sensor_name",
+            name: "Sensor",
+          },
           {
             key: "dosage",
             name: "Dosagem",
@@ -55,9 +60,6 @@ const SensorDetail = () => {
             name: "Data de criação",
           },
         ]}
-        onClickDelete={() => {}}
-        onClickDetail={() => {}}
-        onClickEdit={() => {}}
       />
     </Box>
   );

@@ -5,23 +5,32 @@ import { useState, useContext, useEffect } from "react";
 
 import TableApp from "../shared/components/TableApp";
 import { SensorContext } from "../shared/contexts/sensor.context";
+import Modal from "../shared/components/Modal";
 
 const Sensors = () => {
   const navigate = useNavigate();
   const [data, setData] = useState<any[]>([]);
-  const { sensors, findAll } = useContext(SensorContext);
+  const [rowTemp, setRowTemp] = useState<any>({});
+  const [openModal, setOpenModal] = useState(false);
+  const { sensors, findAll, remove } = useContext(SensorContext);
 
-  const sensorDetail = (row: any) => {
+  const handleDetail = (row: any) => {
     navigate(`/sensors/${row.id}`);
   };
 
-  const sensorDelete = (row: any) => {
-    console.log("delete", row);
+  const handleDelete = (row: any) => {
+    setOpenModal(true);
+    setRowTemp(row);
   };
 
-  const sensorEdit = (row: any) => {
+  const handleEdit = (row: any) => {
     console.log("edit", row);
     navigate("/sensors/create", { state: row });
+  };
+
+  const removeSensor = async () => {
+    await remove(rowTemp.id);
+    setOpenModal(false);
   };
 
   useEffect(() => {
@@ -76,9 +85,18 @@ const Sensors = () => {
             name: "Data",
           },
         ]}
-        onClickDetail={sensorDetail}
-        onClickDelete={sensorDelete}
-        onClickEdit={sensorEdit}
+        onClickDetail={handleDetail}
+        onClickDelete={handleDelete}
+        onClickEdit={handleEdit}
+      />
+      <Modal
+        open={openModal}
+        title="Excluir Sensor"
+        content="Deseja realmente excluir o sensor?"
+        closeText="Cancelar"
+        confirmText="Excluir"
+        handleClose={() => setOpenModal(false)}
+        handleConfirm={removeSensor}
       />
     </Box>
   );

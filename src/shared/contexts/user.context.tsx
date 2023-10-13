@@ -18,8 +18,8 @@ const UserProvider = ({ children }: any) => {
     await findAll();
   };
 
-  const deleteUser = async (id: string) => {
-    await userService.delete(id);
+  const remove = async (id: string) => {
+    await userService.remove(id);
     await findAll();
   };
 
@@ -32,7 +32,7 @@ const UserProvider = ({ children }: any) => {
     users,
     findAll,
     create,
-    deleteUser,
+    remove,
     update,
   };
 
