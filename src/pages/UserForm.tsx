@@ -6,25 +6,25 @@ import { Grid, TextField } from "@mui/material";
 import InputLabel from "@mui/material/InputLabel";
 import FormControl from "@mui/material/FormControl";
 import { useEffect, useState, useContext } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
 import { UserContext } from "../shared/contexts/user.context";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { ROLE } from "../shared/interfaces/user.interface";
 
 const UserForm = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
   const { state } = useLocation();
-  const [role, setRole] = useState<string>("");
+  const [role, setRole] = useState<ROLE>(ROLE.USER);
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [isActive, setIsActive] = useState<number>(0);
-  const { update } = useContext(UserContext);
+  const { update, create } = useContext(UserContext);
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
     const name = formData.get("name") as string;
-    const role = formData.get("role") as ROLE;
     const email = formData.get("email") as string;
     const isActive = formData.get("isActive") as string;
 
@@ -37,6 +37,11 @@ const UserForm = () => {
 
     if (state) {
       await update(state.id, data);
+    } else {
+      const password = formData.get("password") as string;
+      const payload = { ...data, password };
+
+      await create(payload);
     }
     navigate("/users");
   };
@@ -88,6 +93,19 @@ const UserForm = () => {
                 onChange={(event) => setEmail(event.target.value)}
               />
             </Grid>
+            {!id && !state && (
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                />
+              </Grid>
+            )}
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
                 <InputLabel id="select-role-user">Perfil do usuário</InputLabel>
@@ -96,32 +114,35 @@ const UserForm = () => {
                   id="role-user"
                   value={role}
                   label="Perfil do usuário"
-                  onChange={(event) => setRole(event.target.value as string)}
+                  onChange={(event) => setRole(event.target.value as ROLE)}
                 >
                   <MenuItem value="ADMIN">Admin</MenuItem>
                   <MenuItem value="USER">Usuário comum</MenuItem>
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel id="select-user-status">
-                  Status do usuário
-                </InputLabel>
-                <Select
-                  labelId="user-status"
-                  id="user-status"
-                  value={isActive}
-                  label="Status do usuário"
-                  onChange={(event) =>
-                    setIsActive(event.target.value as number)
-                  }
-                >
-                  <MenuItem value={1}>Ativo</MenuItem>
-                  <MenuItem value={0}>Inativo</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
+            {(id || state) && (
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel id="select-user-status">
+                    Status do usuário
+                  </InputLabel>
+                  <Select
+                    labelId="user-status"
+                    id="user-status"
+                    value={isActive}
+                    label="Status do usuário"
+                    disabled={!!id}
+                    onChange={(event) =>
+                      setIsActive(event.target.value as number)
+                    }
+                  >
+                    <MenuItem value={1}>Ativo</MenuItem>
+                    <MenuItem value={0}>Inativo</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+            )}
           </Grid>
           <Button
             type="submit"

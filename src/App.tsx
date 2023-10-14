@@ -2,18 +2,17 @@ import { Routes, Route } from "react-router-dom";
 
 import Login from "./pages/Login";
 import Users from "./pages/Users";
-import NotFound from "./pages/NotFound";
+import Layout from "./pages/Layout";
+import Support from "./pages/Support";
 import Sensors from "./pages/Sensors";
+import NotFound from "./pages/NotFound";
+import Settings from "./pages/Settings";
+import UserForm from "./pages/UserForm";
+import SensorForm from "./pages/SensorForm";
+import SensorDetail from "./pages/SensorDetail";
 
 import { PrivateRoute } from "./shared/PrivateRoute";
 import { ROLE } from "./shared/interfaces/user.interface";
-import Layout from "./pages/Layout";
-import Register from "./pages/Register";
-import SensorForm from "./pages/SensorForm";
-import SensorDetail from "./pages/SensorDetail";
-import UserForm from "./pages/UserForm";
-import Settings from "./pages/Settings";
-import Support from "./pages/Support";
 
 export default function App() {
   return (
@@ -25,10 +24,6 @@ export default function App() {
       <Route
         path="/login"
         element={<PrivateRoute roles={[]} component={Login} isPublic />}
-      />
-      <Route
-        path="/register"
-        element={<PrivateRoute roles={[]} component={Register} isPublic />}
       />
       <Route path="*" element={<NotFound />} />
       <Route element={<Layout />}>

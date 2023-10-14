@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { Box } from "@mui/material";
+import { Box, Button, Stack } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import TableApp from "../shared/components/TableApp";
 import { useEffect, useContext, useState } from "react";
@@ -60,6 +60,11 @@ const Users = () => {
 
   return (
     <Box>
+      <Stack direction="row-reverse" spacing={2} paddingBottom={2}>
+        <Button variant="contained" onClick={() => navigate("/users/create")}>
+          CRIAR NOVO USUÁRIO
+        </Button>
+      </Stack>
       <TableApp
         data={data}
         hasActions
